@@ -1,0 +1,28 @@
+version: "1"
+
+package:
+  id: io.github.rtStockData
+  name: rtStockData
+  version: 0.0.0.1
+  kind: app
+  description: |
+    Real-time stock exchange data viewer cross platform with Qt
+
+command:
+  - /opt/apps/io.github.rtStockData/files/bin/rtStockCurrentUi
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/wjyrich/rtStockData.git
+    version: master
+    commit: 1332fbe925a18c132751202de96ef8d09771de36
+
+build: |
+  cd /project/linglong/sources/rtStockData.git
+  cd src
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
